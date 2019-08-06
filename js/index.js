@@ -205,7 +205,7 @@ var Script = btoa('{-# STDLIB_VERSION 3 #-}{-# CONTENT_TYPE EXPRESSION #-}{-# SC
 WavesKeeper.signAndPublishTransaction({
   type: 13,
   data: {
-       script: Script
+       script: Script,
 fee: {
   "tokens": "0.04",
   "assetId": "WAVES"
