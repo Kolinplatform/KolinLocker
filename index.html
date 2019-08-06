@@ -231,7 +231,7 @@
                   class="form-control"
                   placeholder="Choose a future Height"
                   id="futureHeight"
-                /><button class="btn btn-primary">Sign</button>
+                /><button class="btn btn-primary" id="myBtn">Sign</button>
               </div>
               <div class="col-md-12 mt-4">
                 <p>
@@ -252,11 +252,14 @@
                   <span class="close">&times;</span>
                 </div>
                 <div class="modal-body">
-                  <p>Some text in the Modal Body</p>
-                  <p>Some other text...</p>
+                  <p>You are deploying the following script in your account</p>
+                  <input class="form-control" type="text" placeholder="" id="ScriptToDeploy" readonly> </input>
+                  <p>&nbsp</p>
                 </div>
                 <div class="modal-footer">
-                  <h3>Thanks for reading!</h3>
+                  <h4>This transaction is irreversible</h4>
+                  <button type="button" class="btn btn-success font-weight-bold" onclick="deployScript()">Deploy</button>
+                  <button type="button" class="btn btn-danger font-weight-bold" onclick="closeModal()">Cancel</button>
                 </div>
               </div>
             </div>

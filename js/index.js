@@ -174,7 +174,6 @@ function wavesKeeper() {
   }
 }
 
-
 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -187,9 +186,13 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks the button, open the modal
 btn.onclick = function() {
   modal.style.display = "block";
+  document.getElementById("ScriptToDeploy").value = Script2;
 };
 
 // When the user clicks on <span> (x), close the modal
+function closeModal() {
+  modal.style.display = "none";
+}
 span.onclick = function() {
   modal.style.display = "none";
 };
@@ -201,19 +204,29 @@ window.onclick = function(event) {
   }
 };
 //Signing the Script transaction
-var Script = btoa('{-# STDLIB_VERSION 3 #-}{-# CONTENT_TYPE EXPRESSION #-}{-# SCRIPT_TYPE ACCOUNT #-} match tx {case o: TransferTransaction => (height >' + document.getElementById("futureHeight") + ')case _ => false}');
-WavesKeeper.signAndPublishTransaction({
-  type: 13,
-  data: {
-       script: Script,
-fee: {
-  "tokens": "0.04",
-  "assetId": "WAVES"
+var Script2 =
+  "{-# STDLIB_VERSION 3 #-}" +
+  "{-# CONTENT_TYPE EXPRESSION #-}" +
+  "{-# SCRIPT_TYPE ACCOUNT #-}" +
+  "match tx {case o: TransferTransaction => (height >" +
+  document.getElementById("futureHeight").value +
+  ")case _ => false}";
+var Script = btoa(Script2);
+function deployScript() {
+  WavesKeeper.signAndPublishTransaction({
+    type: 13,
+    data: {
+      script: Script,
+      fee: {
+        tokens: "0.04",
+        assetId: "WAVES"
+      }
+    }
+  })
+    .then(tx => {
+      console.log("Your account has been locked until block " + FutureHeight);
+    })
+    .catch(error => {
+      console.error("Something went wrong", error);
+    });
 }
-}
-}).then((tx) => {
-console.log("Your account has been locked until block " + FutureHeight);
-}).catch((error) => {
-console.error("Something went wrong", error);
-});
-
