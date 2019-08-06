@@ -29,19 +29,8 @@
       type="image/png"
       href="https://raw.githubusercontent.com/Kolinplatform/demo/master/images/Kolin-png.png"
     />
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
-
-  <style>
-    .lead {
-      font-size: 1.25rem;
-      font-weight: 300;
-    }
-    .display-4 {
-      font-size: 3.5rem;
-      font-weight: 300;
-      line-height: 1.2;
-    }
-  </style>
   <body>
     <div class="container mt-5">
       <div class="row my-5">
@@ -50,8 +39,21 @@
             <b>Kolin locker</b><i class="mdi mdi-lock-outline"></i>
           </h1>
         </div>
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-4 my-4">
           <p class="lead float-right">made by Kolin Platform</p>
+          <p class="float-right">
+            Login with &nbsp;
+            <a
+              class="btn btn-keeper"
+              style="color: white;"
+              onclick="wavesKeeper()"
+              ><strong>Waves</strong
+              ><svg height="12" width="10">
+                <path fill="#fff" d="M8,4,4,8,0,4,4,0Z"></path>
+              </svg>
+              keeper
+            </a>
+          </p>
         </div>
       </div>
     </div>
@@ -218,6 +220,45 @@
                 class="img-responsive"
                 alt="WavesKeeper-locker"
               />
+            </div>
+            <div class="row">
+              <div class="col-md-12 input-group">
+                <img
+                  src="https://raw.githubusercontent.com/wavesplatform/waveskeeper/master/src/ui/assets/img/loader.gif"
+                  style="height: 50px"
+                /><input
+                  type="text"
+                  class="form-control"
+                  placeholder="Choose a future Height"
+                  id="futureHeight"
+                /><button class="btn btn-primary">Sign</button>
+              </div>
+              <div class="col-md-12 mt-4">
+                <p>
+                  Here you will lock your account until a certain block height,
+                  all transactions will be locked until reaching the chosen
+                  height. Use it as forced future saving or as your blockchain
+                  immutable will.
+                </p>
+              </div>
+              <!-- <button id="myBtn">Open Modal</button>-->
+            </div>
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+              <!-- Modal content -->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2>Kolin message</h2>
+                  <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                  <p>Some text in the Modal Body</p>
+                  <p>Some other text...</p>
+                </div>
+                <div class="modal-footer">
+                  <h3>Thanks for reading!</h3>
+                </div>
+              </div>
             </div>
           </div>
         </div>
