@@ -121,6 +121,7 @@ window.onload = function height() {
 
       //currentheight
       document.getElementById("height").innerHTML = obj.height.toLocaleString();
+      currentHeight = obj.height;
     }
   };
   var WavesAddress = document.getElementById("WavesAddress").value;
@@ -186,7 +187,7 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks the button, open the modal
 btn.onclick = function() {
   modal.style.display = "block";
-  document.getElementById("ScriptToDeploy").value = Script2;
+  document.getElementById("ScriptToDeploy").value = Script;
 };
 
 // When the user clicks on <span> (x), close the modal
@@ -204,19 +205,27 @@ window.onclick = function(event) {
   }
 };
 //Signing the Script transaction
-var Script2 =
-  "{-# STDLIB_VERSION 3 #-}" +
-  "{-# CONTENT_TYPE EXPRESSION #-}" +
-  "{-# SCRIPT_TYPE ACCOUNT #-}" +
-  "match tx {case o: TransferTransaction => (height >" +
-  document.getElementById("futureHeight").value +
-  ")case _ => false}";
-var Script = btoa(Script2);
+document.getElementById("futureHeight").addEventListener("change", event => {
+  FutureHeight = document.getElementById("futureHeight").value;
+  if (FutureHeight <= currentHeight) {
+    alert("please choose a height higher than current height");
+    Script = "please choose a height higher than current height";
+    document.getElementById("acceptDeployment").style.visibility = "hidden";
+  } else {
+    document.getElementById("acceptDeployment").style.visibility = "visible";
+    Script =
+      "{-# STDLIB_VERSION 3 #-}{-# CONTENT_TYPE EXPRESSION #-}{-# SCRIPT_TYPE ACCOUNT #-}match tx {case o: TransferTransaction => (height =" +
+      FutureHeight.toString() +
+      ")case _ => false}";
+    base64Script = btoa(Script);
+  }
+});
+
 function deployScript() {
   WavesKeeper.signAndPublishTransaction({
     type: 13,
     data: {
-      script: Script,
+      script: base64Script,
       fee: {
         tokens: "0.04",
         assetId: "WAVES"
