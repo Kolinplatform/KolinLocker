@@ -157,6 +157,7 @@ function wavesKeeper() {
           //verifying signature and saving the address...
           console.log(data);
           document.getElementById("WavesAddress").value = data.address;
+          WavesAddress = data.address;
           getbalance();
           // if data.address...
           //then {
@@ -214,10 +215,12 @@ document.getElementById("futureHeight").addEventListener("change", event => {
   } else {
     document.getElementById("acceptDeployment").style.visibility = "visible";
     Script =
-      "{-# STDLIB_VERSION 3 #-}{-# CONTENT_TYPE EXPRESSION #-}{-# SCRIPT_TYPE ACCOUNT #-}match tx {case o: TransferTransaction => (height =" +
+      "{-# STDLIB_VERSION 3 #-}{-# CONTENT_TYPE DAPP #-}{-# SCRIPT_TYPE ACCOUNT #-}@Verifier(tx)func verify() = {match tx {case o: SetScriptTransaction => sigVerify(tx.proofs[0], tx.bodyBytes, base58'" +
+      WavesAddress +
+      "') case o: TransferTransaction => (height >" +
       FutureHeight.toString() +
-      ")case _ => false}";
-    base64Script = btoa(Script);
+      ")case _ => false}}";
+    base64Script = "base64:" + btoa(Script);
   }
 });
 
