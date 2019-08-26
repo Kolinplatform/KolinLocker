@@ -217,7 +217,7 @@ document.getElementById("futureHeight").addEventListener("change", event => {
     Script =
       "{-# STDLIB_VERSION 3 #-}{-# CONTENT_TYPE DAPP #-}{-# SCRIPT_TYPE ACCOUNT #-}@Verifier(tx)func verify() = {match tx {case o: SetScriptTransaction => sigVerify(tx.proofs[0], tx.bodyBytes, base58'" +
       WavesAddress +
-      "') case o: TransferTransaction => (height >" +
+      "') case o: TransferTransaction => (lastBlock.height >" +
       FutureHeight.toString() +
       ")case _ => false}}";
     base64Script = "base64:" + btoa(Script);
